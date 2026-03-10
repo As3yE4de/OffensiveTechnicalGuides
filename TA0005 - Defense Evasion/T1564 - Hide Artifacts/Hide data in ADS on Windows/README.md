@@ -93,3 +93,10 @@ To delete all ADSs, we use the following command:<br>
 ## Tested environment
 - Windows 10 x64
 ## References
+[1] Data Hiding Techniques in Windows OS: A Practical Approach to Investigation and Defense - Nihad Ahmad Hassan, Rami Hijazi, Helvi Salminen
+
+[2] [MS-FSCC]: NTFS Streams | Microsoft Learn - https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/c54dec26-1551-4d3a-a0ea-4fa40f848eb3
+
+[3] Naming Files, Paths, and Namespaces - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file
+
+[4] Naming Files, Paths, and Namespaces - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#win32-file-namespaces
