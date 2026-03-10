@@ -33,9 +33,11 @@ To enable this service, we use:<br>
 `C:\> powershell -Command "Start-Service vss`<br>
 <img width="827" height="161" alt="image" src="https://github.com/user-attachments/assets/b6208c80-fbc2-45d2-b1b2-3e361098847b" />
 
-By default, System Restore is disable by default, to enable this feature on volume E:, for example, we use the following command:<br>
-`C:\> powershell -Command "Enable-ComputerRestore -Drive 'E:\'"`<br>
-**Note:** Remember to enable System Restore for the system drive (C:) first to avoid *Include System Drive in the list of drives* error.<br>
+System Restore is disabled by default, to enable this feature on volume F:, for example, we use the following command:<br>
+`C:\> powershell -Command "Enable-ComputerRestore -Drive 'F:\'"`<br>
+**Note:** Remember to enable System Restore for the system drive (C:) first to avoid *Include System Drive in the list of drives* error if we want to create restoration points on volumes not C: drive.<br>
+**Note:** System Restore cannot be enabled on volumes which are not in the system physical disk (the disk contains the OS).<br>
+
 
 
 ## Tested environment
@@ -48,3 +50,5 @@ By default, System Restore is disable by default, to enable this feature on volu
 [3] https://support.microsoft.com/en-gb/windows/system-protection-e9126e6e-fa64-4f5f-874d-9db90e57645a
 
 [4] https://learn.microsoft.com/en-us/answers/questions/2751270/how-to-determine-file-system-block-size
+
+[5] https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/enable-computerrestore?view=powershell-5.1
