@@ -65,7 +65,7 @@ At this point, the `secret.txt` file will appear even if it has the System, Hidd
 ## Tested environment
 - Windows 10 x64
 ## References
-[1] https://www.2brightsparks.com/resources/articles/understanding-file-attributes.html
+[1] Understanding Windows File Attributes - https://www.2brightsparks.com/resources/articles/understanding-file-attributes.html
 
-[2] https://learn.microsoft.com/en-us/windows/win32/fileio/file-attribute-constants
+[2] File Attribute Constants (WinNT.h) - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/fileio/file-attribute-constants
 
