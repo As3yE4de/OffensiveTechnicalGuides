@@ -20,7 +20,7 @@ We can determine the size of block by using command `fsutil ` on Windows.<br>
 
 A little information about diff area: It can contains the maximum number of software shadow copies for each volume is 512 and 
 64 shadow copies that are used by the Shadow Copies of Shared Folders feature. When the diff area reaches the its maximum capacity, the oldest copies will be 
-deleted to make tooms for the new ones.
+deleted to make rooms for the new ones.
 
 Now, with the ability of VSS service, attackers can leverage System Restore feature to hide malicious data by creating a snapshot and then delete evidences, whenever 
 the attackers want to retrieve data, they simply use `vssadmin` tool which is built-in on Windows systems.
@@ -33,22 +33,39 @@ To enable this service, we use:<br>
 `C:\> powershell -Command "Start-Service vss`<br>
 <img width="827" height="161" alt="image" src="https://github.com/user-attachments/assets/b6208c80-fbc2-45d2-b1b2-3e361098847b" />
 
-System Restore is disabled by default, to enable this feature on volume F:, for example, we use the following command:<br>
-`C:\> powershell -Command "Enable-ComputerRestore -Drive 'F:\'"`<br>
-**Note:** Remember to enable System Restore for the system drive (C:) first to avoid *Include System Drive in the list of drives* error if we want to create restoration points on volumes not C: drive.<br>
-**Note:** System Restore cannot be enabled on volumes which are not in the system physical disk (the disk contains the OS).<br>
+System Restore is disabled by default, to enable this feature on volume E:, for example, we use the following command:<br>
+`C:\> powershell -Command "Enable-ComputerRestore -Drive 'C:\','F:\'"`<br><br>
+**Note:** Remember to enable System Restore for the system drive (C:) first to avoid *Include System Drive in the list of drives* error if we want to create restoration points on volumes not C: drive.<br><br>
+<img width="981" height="53" alt="image" src="https://github.com/user-attachments/assets/153ac563-0717-424a-9429-bdd0d0513f73" />
 
+After enabling System Restore on E: drive, just hide our data in this volume and then use the following command to create a restoration point:<br>
+`C:\> powershell -Command "Checkpoint-Computer -Description 'test' -RestorePointType MODIFY_SETTINGS"`<br>
+<img width="1121" height="228" alt="image" src="https://github.com/user-attachments/assets/23a72c84-2c1e-470c-9532-b0ffef883d03" />
 
+To confirm our restoration point, use the following command:<br>
+`E:\> vssadmin list shadows /for=E:`<br>
+<img width="1102" height="243" alt="image" src="https://github.com/user-attachments/assets/6f6d701d-0330-40fc-a604-d6816a7da044" />
+
+Now, we can delete our data on volume E:, whenever we want to access our data, just create a directory symbolic link to the Shadow Copy Volume. Have a look at the below image:<br>
+<img width="1136" height="525" alt="image" src="https://github.com/user-attachments/assets/3dd32c89-40eb-4fa0-901b-9722b85c7574" />
+
+To access our text file, just navigate to the directory symbolic link and use `type` command normally. If we want to run our binary `calc.exe`, use the 
+following command:<br>
+`E:\> wmic process call create <Shadow Copy Volume>\calc.exe`<br><br>
+**NOTE:** Replace the question mark ( ? ) to the period ( . )<br><br> 
+<img width="1032" height="540" alt="image" src="https://github.com/user-attachments/assets/804af64d-c5dd-4be0-9fad-d4aad3e7d84c" />
 
 ## Tested environment
 - Windows 10 x64
 ## References
-[1] https://learn.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service
+[1] Data Hiding Techniques in Windows OS: A Practical Approach to Investigation and Defense - Nihad Ahmad Hassan, Rami Hijazi, Helvi Salminen
 
-[2] https://support.microsoft.com/en-gb/windows/system-restore-a5ae3ed9-07c4-fd56-45ee-096777ecd14e
+[2] Volume Shadow Copy Service (VSS) | Microsoft Learn - https://learn.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service
 
-[3] https://support.microsoft.com/en-gb/windows/system-protection-e9126e6e-fa64-4f5f-874d-9db90e57645a
+[3] System Restore - Microsoft Support - https://support.microsoft.com/en-gb/windows/system-restore-a5ae3ed9-07c4-fd56-45ee-096777ecd14e
 
-[4] https://learn.microsoft.com/en-us/answers/questions/2751270/how-to-determine-file-system-block-size
+[4] System Protection - Microsoft Support - https://support.microsoft.com/en-gb/windows/system-protection-e9126e6e-fa64-4f5f-874d-9db90e57645a
 
-[5] https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/enable-computerrestore?view=powershell-5.1
+[5] How to determine file system block size? - https://learn.microsoft.com/en-us/answers/questions/2751270/how-to-determine-file-system-block-size
+
+[6] Enable-ComputerRestore (Microsoft.PowerShell.Management) - Powershell | Microsoft Learn - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/enable-computerrestore?view=powershell-5.1
