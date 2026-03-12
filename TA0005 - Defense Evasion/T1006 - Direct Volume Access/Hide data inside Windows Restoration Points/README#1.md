@@ -1,4 +1,4 @@
-# Hide data inside Windows Restoration Points
+# Hide data inside Windows Restoration Points - Method #1
 ## Description
 VSS (Volume Shadow Copy Service) is a service introduced in Windows Server 2003 to address issues related to data backup and restore and is only 
 available on NTFS volumes. These issues are:
