@@ -1,4 +1,4 @@
-# Set hidden attribute for files and folders on Windows
+# Set hidden attribute for files and folders on Windows - Method #1
 ## Description
 By exploiting the built-in file attributes of the file system, an attacker can easily make a file or even a folder invisible to the average user.
 File attributes are also known as metadata, are pieces of information which determine the behavior of a file or a folder in how they exist on the file system on Windows. 
