@@ -1,4 +1,4 @@
-# Hide data in ADS on Windows
+# Hide data in ADS on Windows - Method #1
 ## Description
 ADS (Alternative Data Stream) which is only available on NTFS file system. When a file is created in this file system, it has differnet data streams, but one of them is 
 unamed. This unamed data stream is also called the default stream that contains the real data that we expect to see. In addition to the default stream, there can be many 
