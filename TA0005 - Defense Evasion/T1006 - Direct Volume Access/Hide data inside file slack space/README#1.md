@@ -14,13 +14,26 @@ C:\> wmic volume where "DriveLetter='F:'" get BlockSize, FileSystem, Label
 
 As we mentioned earlier, the smallest unit a file system can allocate for a file is a cluster. This means that if we create a file smaller than 4096 bytes (4KB), a cluster will still be allocated for that file, and if we create a file larger than 4096 bytes, for example, a 4097-byte file, two clusters will be allocated for this file. Look at the below images:
 
-<img width="1003" height="436" alt="image" src="https://github.com/user-attachments/assets/a145e3c2-c7dc-4f68-93f2-6211d10dc060" />
+<img width="987" height="427" alt="image" src="https://github.com/user-attachments/assets/a270e6bb-3921-4e16-af4e-f46ea589b788" />
 
 At the `file1.txt`, the *Size* information is the real size of this file which is 3926 bytes and the *Size on disk* information is the allocated size which is a cluster (4096 bytes). Similarly for the `file2.txt`, the real size is 4832 bytes and the number of allocated clusters is 2 (8192 bytes). So, where is the file slack space? Simply put, we just need to use the byte-allocated clusters minus the actual byte size of the file.
 - Slack space for `file1.txt`: 4096 - 3926 = 170 bytes
 - Slack space for `file2.txt`: 8192 - 4832 = 3360 bytes
 
-j
+But before we proceed to hide the files, let's look at how clusters are arranged within a file by using the following command:
+```
+C:\> fsutil file queryExtents <FILE_PATH>
+```
+<img width="750" height="101" alt="image" src="https://github.com/user-attachments/assets/ccc6835a-f194-4dbd-9683-71f6e4080595" />
+
+- VCN (Virtual Cluster Number): Any cluster in a file has a VCN, which is its relative offset from the beginning of the file.
+- Clusters: The number of allocated clusters within an extent.
+- LCN (Logical Cluster Number): A LCN describes the offset of a cluster from some arbitrary point within the volume.
+
+In our case, both files `file1.txt` and `file2.txt` have only one extent (an extent is a run of contiguous clusters). If a file is large enough, it may be fragmented and its extents will be more than one, like the below image:<br>
+<img width="953" height="128" alt="image" src="https://github.com/user-attachments/assets/651c59b1-30a7-4e34-8fdc-3aa095a170cd" />
+
+The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, 
 
 ## Procedure
 ## Tested environment
@@ -28,3 +41,6 @@ j
 ## References
 [1] Data Hiding Techniques in Windows OS: A Practical Approach to Investigation and Defense - Nihad Ahmad Hassan, Rami Hijazi, Helvi Salminen
 
+[2] File System - Cluster (File | Sector Cluster) - https://www.datacadamia.com/file/cluster
+
+[3] Clusters and Extents - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/fileio/clusters-and-extents
