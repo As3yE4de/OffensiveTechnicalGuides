@@ -20,7 +20,7 @@ At the `file1.txt`, the *Size* information is the real size of this file which i
 - Slack space for `file1.txt`: 4096 - 3926 = 170 bytes
 - Slack space for `file2.txt`: 8192 - 4832 = 3360 bytes
 
-But before we proceed to hide the files, let's look at how clusters are arranged within a file by using the following command:
+But before we proceed to hide data in file slack space, let's look at how clusters are arranged within a file by using the following command:
 ```
 C:\> fsutil file queryExtents <FILE_PATH>
 ```
@@ -33,10 +33,16 @@ C:\> fsutil file queryExtents <FILE_PATH>
 In our case, both files `file1.txt` and `file2.txt` have only one extent (an extent is a run of contiguous clusters). If a file is large enough, it may be fragmented and its extents will be more than one, like the below image:<br>
 <img width="953" height="128" alt="image" src="https://github.com/user-attachments/assets/651c59b1-30a7-4e34-8fdc-3aa095a170cd" />
 
-The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, and the last cluster is in the last extent of the file. Therefore, to write data (hide data) in the slack space, we need to find the real sector offset (not relative sector offset) of the last LCN (last cluster) in the last extent. Let's briefly discuss sectors and why we need sector offsets.<br>
+The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, and the last cluster is in the last extent of the file. Therefore, to write data (hide data) in the slack space, we need to find the real sector offset (not relative sector offset) of the last LCN (last cluster) in the last extent and then, calculate the real sector offset of the first sector in slack space. Let's briefly discuss sectors and why we need sector offsets.<br>
 ![TA0005 - Defense Evasion/T1006 - Direct Volume Access/Hide data inside file slack space/Images/test.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/a78722cfec2cbb7dc6a75f92bb6288863a5d9527/TA0005%20-%20Defense%20Evasion/T1006%20-%20Direct%20Volume%20Access/Hide%20data%20inside%20file%20slack%20space/Images/test.png)
 
+At the physical level, the smallest unit of a physical disk is a sector and all volumes within the physical disk will use this sector size. A sector is usually 512 bytes, and we can use the following command to check the size of a sector:
+```
+C:\> wmic diskdrive get BytesPerSector, DeviceID
+```
+![TA0005 - Defense Evasion/T1006 - Direct Volume Access/Hide data inside file slack space/Images/Screenshot 2026-03-13 104514.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/5f07edeeda396a04c404f68eb5551cb138faefb2/TA0005%20-%20Defense%20Evasion/T1006%20-%20Direct%20Volume%20Access/Hide%20data%20inside%20file%20slack%20space/Images/Screenshot%202026-03-13%20104514.png)
 
+The DeviceID `\\.\PHYSICALDRIVE0`, `\\.\PHYSICALDRIVE1`, `\\.\PHYSICALDRIVE2` are Disk 0, Disk 1, and Disk 2, respectively. These DeviceIDs are the entries for us to write data directly to the slack space. Because the smallest unit of a physical disk is a sector, when we want to write raw data to a physical disk, we must write it in sectors and therefore, we must use the real sector offset. Simply put, there is no way to write data directly to file slack space, we have to use raw writting method to bypass the file system.
 
 ## Procedure
 ## Tested environment
