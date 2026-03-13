@@ -34,6 +34,8 @@ In our case, both files `file1.txt` and `file2.txt` have only one extent (an ext
 <img width="953" height="128" alt="image" src="https://github.com/user-attachments/assets/651c59b1-30a7-4e34-8fdc-3aa095a170cd" />
 
 The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, and the last cluster is in the last extent of the file. Therefore, to write data (hide data) in the slack space, we need to find the real sector offset (not relative sector offset) of the last LCN (last cluster) in the last extent. Let's briefly discuss sectors and why we need sector offsets.<br>
+![TA0005 - Defense Evasion/T1006 - Direct Volume Access/Hide data inside file slack space/Images/test.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/a78722cfec2cbb7dc6a75f92bb6288863a5d9527/TA0005%20-%20Defense%20Evasion/T1006%20-%20Direct%20Volume%20Access/Hide%20data%20inside%20file%20slack%20space/Images/test.png)
+
 
 
 ## Procedure
