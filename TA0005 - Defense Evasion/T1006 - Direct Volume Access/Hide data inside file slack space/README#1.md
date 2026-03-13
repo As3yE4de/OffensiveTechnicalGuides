@@ -33,7 +33,8 @@ C:\> fsutil file queryExtents <FILE_PATH>
 In our case, both files `file1.txt` and `file2.txt` have only one extent (an extent is a run of contiguous clusters). If a file is large enough, it may be fragmented and its extents will be more than one, like the below image:<br>
 <img width="953" height="128" alt="image" src="https://github.com/user-attachments/assets/651c59b1-30a7-4e34-8fdc-3aa095a170cd" />
 
-The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, 
+The reason we need to understand the clustering structure within a file is because this is how attackers find writable slack space. As we have known, the file slack space begins at the last cluster of a file, and the last cluster is in the last extent of the file. Therefore, to write data (hide data) in the slack space, we need to find the real sector offset (not relative sector offset) of the last LCN (last cluster) in the last extent. Let's briefly discuss sectors and why we need sector offsets.<br>
+
 
 ## Procedure
 ## Tested environment
