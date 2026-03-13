@@ -1,5 +1,4 @@
-# Hide data inside file slack space - Method #1
-## Description
+# Hide data inside file slack space - Technical concept
 Hiding data in file slack space is a technique that exploits the Windows operating system's ability to allocate disk space for a file. Logically, when we create a file on a volume, the smallest unit that the file system can allocate is a cluster, not a byte. On Windows 10, the cluster size on NTFS volume is typically 4096 bytes, but depending on the file system being used on the specific volume, the size of a cluster can vary. We can also be able to determine the size of a cluster on a specific volume by using command (e.g. NTFS C: volume):
 ```
 C:\> fsutil fsinfo ntfsinfo C:
