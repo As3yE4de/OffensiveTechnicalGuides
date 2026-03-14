@@ -1,5 +1,5 @@
 # Hide data inside file slack space - Procedure #1
-Let's assume we want to hide `secret.txt` in file slack spaces of `file1.txt` and `file2.txt`.
+Let's assume we want to hide `secret.txt` in file slack spaces of `file1.txt` and `file2.txt` which are in NTFS E: drive.
 <img width="827" height="328" alt="image" src="https://github.com/user-attachments/assets/3dca7d2d-f67e-47df-b647-b7918c9a0018" />
 
 The first informations we need to gather are bytes per sector and bytes per cluster of volume E:, so we use the following command:
