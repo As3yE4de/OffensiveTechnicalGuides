@@ -29,7 +29,8 @@ C:\> dd if=\\.\E: bs=512 skip=11341 count=1 | powershell -Command "$input | Form
 ![TA0005 - Defense Evasion/T1006 - Direct Volume Access/Hide data inside file slack space/Screenshots/Screenshot 2026-03-15 184147.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/fd59a1031781424dcc2ac82192d64e62988546b8/TA0005%20-%20Defense%20Evasion/T1006%20-%20Direct%20Volume%20Access/Hide%20data%20inside%20file%20slack%20space/Screenshots/Screenshot%202026-03-15%20184147.png)
 
 # Tested environment
-- Windows 10 x64
-- Basic NTFS volume E:
+- Operating system: Windows 10 x64
+- File system: NTFS
+- Disk type: Basic disk
 
 ---
