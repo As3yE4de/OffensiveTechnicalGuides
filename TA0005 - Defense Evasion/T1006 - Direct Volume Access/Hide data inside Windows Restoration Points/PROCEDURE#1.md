@@ -30,6 +30,7 @@ following command:<br>
 <img width="1032" height="540" alt="image" src="https://github.com/user-attachments/assets/804af64d-c5dd-4be0-9fad-d4aad3e7d84c" />
 
 # Tested environment
-- Windows 10 x64
+- Operating system: Windows 10 x64
+- Minimum size of volume: 1124 MB
 
 ---
