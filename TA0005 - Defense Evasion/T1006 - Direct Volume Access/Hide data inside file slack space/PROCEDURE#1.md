@@ -65,6 +65,8 @@ C:\> dd if=C:\testSlackSpace\secret.txt of=\\.\E: bs=512 seek=11394 count=1
 <img width="1122" height="731" alt="image" src="https://github.com/user-attachments/assets/e9d9f55e-d3fd-4735-ae10-11918e58b73a" />
 
 # Tested environment:
-- Windows 10 x64
-- Basic NTFS volume E:
+- Operating system: Windows 10 x64
+- File system: NTFS
+- Disk type: Basic disk
+
 ---
