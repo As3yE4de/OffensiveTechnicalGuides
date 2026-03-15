@@ -30,5 +30,6 @@ C:\> dd if=\\.\E: bs=512 skip=11341 count=1 | powershell -Command "$input | Form
 
 # Tested environment
 - Windows 10 x64
+- Basic NTFS volume E:
 
 ---
