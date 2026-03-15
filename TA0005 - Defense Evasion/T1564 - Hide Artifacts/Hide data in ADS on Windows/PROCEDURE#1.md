@@ -55,6 +55,7 @@ To delete all ADSs, we use the following command:<br>
 <img width="1077" height="492" alt="image" src="https://github.com/user-attachments/assets/dd4fd3eb-35da-4788-a666-9806e7a5ff2d" />
 
 # Tested environment
-- Windows 10 x64
+- Operating system: Windows 10 x64
+- File system: NTFS
 
 ---
