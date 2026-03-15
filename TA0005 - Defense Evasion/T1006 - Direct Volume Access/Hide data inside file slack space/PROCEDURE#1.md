@@ -66,5 +66,5 @@ C:\> dd if=C:\testSlackSpace\secret.txt of=\\.\E: bs=512 seek=11394 count=1
 
 # Tested environment:
 - Windows 10 x64
-
+- Basic NTFS volume E:
 ---
