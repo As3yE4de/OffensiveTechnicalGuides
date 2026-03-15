@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="DiskEnum.vcxproj" Id="90798c3d-8692-4d19-b322-66d3b3ee5330" />
+</Solution>
