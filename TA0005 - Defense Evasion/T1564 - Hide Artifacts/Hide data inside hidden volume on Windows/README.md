@@ -1,8 +1,11 @@
 # Hide data inside hidden volume on Windows - Technical concepts
 A volume, also known as a drive, is a collection of addressable sectors that an Operating System (OS) or application can use for data storage. The sectors in a volume need not be consecutive on a physical storage device; instead, they need to only give the impression that they are, users simply need to open File Explorer and store their data in a volume, they don't need to know the structure of the volume at physical level. Taking advantage of this, the attacker only needs to find a way to make a volume hidden from the view of the average user but still be able to bypass the OS's file system.
 
-When we create a volume (maybe via Disk Management) and assign a letter to it, we actually created a mount point for an individual file system. Simply put, a mount point is a gateway (an entry point) that allows us to access directories or files within a file system. Even if we don't assign a letter for a volume (no mount point created), we are still able to access that volume via Volume GUID path, it's like we're hiding the gateway and crawling into the file system through a tunnel. Volume GUID paths are strings of form `\\?\Volume{GUID}\` where GUID is a globally unique identifier (GUID) that identifies the volume. The image below shows the result of the command `mountvol`:
+When we create a volume (maybe via Disk Management) and assign a letter to it, we actually created a mount point for an individual file system. Simply put, a mount point is a gateway (an entry point) that allows us to access directories or files within a file system. Even if we don't assign a letter for a volume (no mount point created), we are still able to access that volume via Volume GUID path or NT namespace `\\?\GLOBALROOT\Device\`, it's like we're hiding the gateway and crawling into the file system through a tunnel. Volume GUID paths are strings of form `\\?\Volume{GUID}\` where GUID is a globally unique identifier (GUID) that identifies the volume. The image below shows the result of the command `mountvol`:
 ![TA0005 - Defense Evasion/T1564 - Hide Artifacts/Hide data inside hidden volume on Windows/Screenshots/Screenshot 2026-03-17 101333.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/5e96acf1b37f42ecc2f2c1f6524b48f3d88e89c3/TA0005%20-%20Defense%20Evasion/T1564%20-%20Hide%20Artifacts/Hide%20data%20inside%20hidden%20volume%20on%20Windows/Screenshots/Screenshot%202026-03-17%20101333.png)
+
+For NT namespace, a device object representing a volume would be something like "HarddiskVolume1", although the numeric suffix may vary. We can use `fltmc` command to view the NT namespace of all volumes on the machine:
+![TA0005 - Defense Evasion/T1564 - Hide Artifacts/Hide data inside hidden volume on Windows/Screenshots/Screenshot 2026-03-17 200028.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/57fbd71f48b36acdcb4209f754f10f671eb314d1/TA0005%20-%20Defense%20Evasion/T1564%20-%20Hide%20Artifacts/Hide%20data%20inside%20hidden%20volume%20on%20Windows/Screenshots/Screenshot%202026-03-17%20200028.png)
 
 At the physical level, a volume is typically mapped to a Partition. While a volume usually corresponds to a single partition, it can also span across multiple partitions (possibly on different physical disks), as seen with Dynamic Disks or RAID configurations. In these cases, the volume provides a single, unified logical address space for the Operating System, regardless of the underlying physical partition structure.
 
@@ -46,5 +49,7 @@ With GPT partitions, the partition attribute determines the behavior of that par
 [4] Listing of MBR/EBR Partition Types - https://thestarman.pcministry.com/asm/mbr/PartTypes.htm
 
 [5] PARTITION_INFORMATION_GPT - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-partition_information_gpt
+
+[6] Naming Files, Paths, and Namespaces - Win32 apps | Microsoft Learn - https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file
 
 ---
