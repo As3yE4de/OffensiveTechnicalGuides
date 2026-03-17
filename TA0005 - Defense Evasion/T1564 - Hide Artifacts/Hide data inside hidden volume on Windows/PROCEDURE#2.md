@@ -44,7 +44,8 @@ DISKPART> set id=17
 ```
 ![TA0005 - Defense Evasion/T1564 - Hide Artifacts/Hide data inside hidden volume on Windows/Screenshots/Screenshot 2026-03-17 202759.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/0055b9b0db103658e5f81fcf6c881b67c7a24647/TA0005%20-%20Defense%20Evasion/T1564%20-%20Hide%20Artifacts/Hide%20data%20inside%20hidden%20volume%20on%20Windows/Screenshots/Screenshot%202026-03-17%20202759.png)
 
-
+Unlike GPT partitions, when we set hidden attribute for a GPT partition, the value of `Attrib` is changed but the value of `Type` (basic data GUID) remains the same, that's the reason why we can still access the hidden volume via NT namespace. But in the case of MBR, because we have changed the entire volume, therefore if we want to access it again, we must set it back to normal. To do this, we use the following commands in `diskpart`:
+![TA0005 - Defense Evasion/T1564 - Hide Artifacts/Hide data inside hidden volume on Windows/Screenshots/Screenshot 2026-03-18 004153.png](https://github.com/As3yE4de/OffensiveTechnicalGuides/blob/e11700d9e96233431097c22841b70c7b083fa0ff/TA0005%20-%20Defense%20Evasion/T1564%20-%20Hide%20Artifacts/Hide%20data%20inside%20hidden%20volume%20on%20Windows/Screenshots/Screenshot%202026-03-18%20004153.png)
 
 # Tested environment
 - Windows 10 x64
