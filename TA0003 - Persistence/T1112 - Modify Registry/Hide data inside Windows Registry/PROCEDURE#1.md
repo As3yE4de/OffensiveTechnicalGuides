@@ -1,4 +1,4 @@
-# Hide data inside VHD on Windows - Procedure #1
+# Hide data inside Windows Registry - Procedure #1
 In this procedure, we are going to hide a malicious binary `calc.exe` inside Registry Key. First, let's find a house for this binary by using the following command:
 ```
 C:\> powershell
